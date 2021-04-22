@@ -25,8 +25,9 @@ class Graph{//undirected graph implementation only
         this.adjacencyList[ver1].splice(idxVer2, 1)
     }
     removeVertex(ver){
-        for(let val of this.adjacencyList[ver]){
-            this.removeEdge(ver, val)
+        for(let i = 0; i<this.adjacencyList[ver].length; i++){
+            let value = this.adjacencyList[ver].splice(i, 1);
+            this.removeEdge(ver, value)
         }
     }
 }
