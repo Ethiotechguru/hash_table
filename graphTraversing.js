@@ -46,12 +46,10 @@ class GraphT{
                 }
             })
         }(v))
-        
-        console.log(visited);
         console.log(result);
         return result;
     }
-    DFS_interative(start) {
+    DFS_iterative(start) {
         let result = [];
         let visited = {};
         let stack = [start];
@@ -67,6 +65,51 @@ class GraphT{
                 }
             })
         }
+        console.log(result);
+        return result;
+    }
+    BFS_iterative(start) {
+        let result = [];
+        let visited = {};
+        let queue = [start];
+
+        visited[start] = true;
+        while (queue.length) {
+            let vertex = queue.shift();
+            result.push(vertex)
+            this.adjacencyList[vertex].forEach(ver => {
+                if (!visited[ver]) {
+                    queue.push(ver);
+                    visited[ver] = true;
+                }
+            })
+        }
+        console.log(result)
+        return result;
+    }
+    BFS_recursive(start) {
+        let result = [];
+        let visited = {};
+        let queue = [];
+        let adjacencyList = this.adjacencyList;
+        (function helperFunc(x) {
+            if (!x) return null;
+            result.push(x);
+            visited[x] = true;
+
+            adjacencyList[x].forEach(ver => {
+                if (!visited[ver]) {
+                    queue.push(ver)
+                }
+            })
+            while (queue.length) {
+                let current = queue.shift();
+                if (!visited[current]) {
+                    return helperFunc(current);
+                }
+            }
+        }(start))
+        console.log(result)
         return result;
     }
 }
@@ -78,7 +121,10 @@ g.addEdges('C', 'E');
 g.addEdges('D', 'E');
 g.addEdges('D', 'F');
 g.addEdges('E', 'F');
-g.dfs('A')
+//g.DFS_recursive('A')['A', 'B', 'D', 'E', 'C', 'F']
+// g.DFS_iterative('A')['A', 'C', 'E', 'F', 'D', 'B']
+// g.BFS_iterative('A')['A', 'B', 'C', 'D', 'E', 'F']
+// g.BFS_recursive('A')['A', 'B', 'C', 'D', 'E', 'F']
 // g.removeEdge('D', 'E')
 // g.removeVertex('D')
 // console.log(g.adjacencyList);
